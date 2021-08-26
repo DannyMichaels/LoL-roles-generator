@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, useMediaQuery } from '@material-ui/core';
+import { Typography, Grid, useMediaQuery, Hidden } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
@@ -103,12 +103,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <Grid item style={{ flexGrow: 1 }} />
-
+        <Grid item style={{ flexGrow: 1 }}>
+          <Hidden xsDown>
+            <Box marginTop={4} marginBottom={2} marginLeft={2}>
+              *Last modified: August 26 2021*
+            </Box>
+          </Hidden>
+        </Grid>
         <div className="page-content">
-          {/* <Typography align="center" variant="h1" component="h1">
-          LoL Roles Generator
-        </Typography> */}
           {!sent ? (
             <Grid
               container
@@ -179,9 +181,8 @@ function App() {
               </Button>
             </Grid>
           </>
-          <Grid item style={{ flexGrow: 1 }} />
+          <Box marginTop={4} style={{ flexGrow: 1 }} />
         </div>
-
         <footer>
           <Grid container justify="space-between" style={{ padding: '10px' }}>
             <Typography>

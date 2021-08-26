@@ -62,6 +62,7 @@ export default function Results({ teams, roles }) {
       direction={matchesXs ? 'column' : 'row'}
       justify={matchesXs ? 'center' : 'space-evenly'}
       xs={12}
+      alignItems="center"
       sm={12}>
       <TeamList title="Team One (Blue Side)" team={blueSide} roles={roles} />
       {matchesXs && <Box marginTop={4} />}
