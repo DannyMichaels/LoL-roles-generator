@@ -29,7 +29,7 @@ const theme = createTheme({
 /**
  * @method shuffle
  * @param {Array} array
- * @return  takes an array and shuffles the elements.
+ * @return {Array} takes an array and shuffles the elements.
  */
 
 const shuffle = (array) => {
