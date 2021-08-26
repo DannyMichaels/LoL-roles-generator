@@ -257,6 +257,18 @@ function App() {
                   />
                   <Button
                     variant="contained"
+                    style={{ color: '#fff' }}
+                    color="secondary"
+                    onClick={onReset}>
+                    Reset
+                  </Button>
+                  <Box
+                    marginRight={!matchesXs && 2}
+                    marginTop={matchesXs && 2}
+                  />
+
+                  <Button
+                    variant="contained"
                     color="primary"
                     style={{ background: 'blue' }}
                     onClick={() => {
@@ -279,6 +291,17 @@ function App() {
                     marginRight={!matchesXs && 2}
                     marginTop={matchesXs && 2}
                   />
+                  <Button
+                    variant="contained"
+                    style={{ color: '#fff' }}
+                    color="secondary"
+                    onClick={onReset}>
+                    Reset
+                  </Button>
+                  <Box
+                    marginRight={!matchesXs && 2}
+                    marginTop={matchesXs && 2}
+                  />
 
                   <Button
                     variant="contained"
@@ -293,13 +316,6 @@ function App() {
                 </>
               )}
               <Box marginRight={!matchesXs && 2} marginTop={matchesXs && 2} />
-              <Button
-                variant="contained"
-                style={{ color: '#fff' }}
-                color="secondary"
-                onClick={onReset}>
-                Reset
-              </Button>
             </Grid>
           </>
           <Box marginTop={4} style={{ flexGrow: 1 }} />
@@ -319,7 +335,7 @@ function App() {
                   GitCat
                 </a>
               </Hidden>
-              &nbsp; LoL Random Roles Generator &copy; 2021
+              &nbsp; LoL Teams / Roles Randomizer &copy; 2021
             </Typography>
 
             <a
