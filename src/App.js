@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
@@ -9,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
 import { Box } from '@material-ui/core';
+import Results from './components/Results';
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,7 @@ const theme = createTheme({
 /**
  * @method shuffle
  * @param {Array} array
- * @return  takes an array and shuffles the elements.
+ * @return {Array} takes an array and shuffles the elements.
  */
 
 const shuffle = (array) => {
@@ -52,8 +53,8 @@ const shuffle = (array) => {
 
 function App() {
   const [teams, setTeams] = useState({
-    blueSide: [],
-    redSide: [],
+    blueSide: new Array(5).fill(''),
+    redSide: new Array(5).fill(''),
   });
 
   const [sent, setSent] = useState(false);
@@ -86,17 +87,12 @@ function App() {
   const onReset = () => {
     setSent(false);
     setTeams({
-      blueSide: [],
-      redSide: [],
+      blueSide: new Array(5).fill(''),
+      redSide: new Array(5).fill(''),
     });
 
     handleToggleReset((prev) => !prev);
   };
-
-  const playersLength = useMemo(
-    () => teams.blueSide.length + teams.redSide.length,
-    [teams]
-  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -118,6 +114,7 @@ function App() {
                 alignItems="center"
                 direction="column"
                 sm={6}>
+                {/* textfields team1 */}
                 <TeamArea
                   title="Team 1 (Blue Side)"
                   teamName="blueSide"
@@ -132,6 +129,7 @@ function App() {
                 alignItems="center"
                 direction="column"
                 sm={6}>
+                {/* textfields team2 */}
                 <TeamArea
                   title="Team 2 (Red Side)"
                   teamName="redSide"
@@ -141,49 +139,7 @@ function App() {
               </Grid>
             </Grid>
           ) : (
-            <>
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                sm={12}
-                spacing={2}>
-                <Grid item>
-                  <Typography variant="h4" component="h1" gutterBottom>
-                    Team One (Blue Side)
-                  </Typography>
-                  {roles.map((role, idx) => (
-                    <Grid
-                      item
-                      style={{
-                        backgroundColor: '#fff',
-                        padding: '10px',
-                        border: '1px solid #999',
-                      }}>
-                      <Typography>Role: {role}</Typography>
-                      <Typography>Name: {teams.blueSide[idx]}</Typography>
-                    </Grid>
-                  ))}
-                </Grid>
-                <Grid item>
-                  <Typography variant="h4" component="h1" gutterBottom>
-                    Team Two (Red Side)
-                  </Typography>
-                  {roles.map((role, idx) => (
-                    <Grid
-                      item
-                      style={{
-                        backgroundColor: '#fff',
-                        padding: '10px',
-                        border: '1px solid #999',
-                      }}>
-                      <Typography>Role: {role}</Typography>
-                      <Typography>Name: {teams.redSide[idx]}</Typography>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-            </>
+            <Results teams={teams} roles={roles} />
           )}
           <>
             <br />
@@ -199,11 +155,17 @@ function App() {
                 variant="contained"
                 color="primary"
                 onClick={getRoles}
-                disabled={playersLength < 10}>
+                disabled={[...teams.blueSide, ...teams.redSide].some(
+                  (value) => value === ''
+                )}>
                 {!sent ? 'Get Roles' : 'Shuffle Again'}
               </Button>
               <Box marginRight={2} />
-              <Button variant="contained" color="secondary" onClick={onReset}>
+              <Button
+                variant="contained"
+                style={{ color: '#fff' }}
+                color="secondary"
+                onClick={onReset}>
                 Reset
               </Button>
             </Grid>
@@ -211,7 +173,16 @@ function App() {
         </div>
         <footer>
           <Grid container justify="space-between" style={{ padding: '10px' }}>
-            <Typography>GitCat LoL roles Generator</Typography>
+            <Typography>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={'https://github.com/DannyMichaels/'}>
+                GitCat
+              </a>
+              &nbsp; LoL Roles Generator &copy; 2021
+            </Typography>
+
             <a
               target="_blank"
               rel="noreferrer"
