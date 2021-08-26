@@ -58,6 +58,7 @@ function App() {
     blueSide: new Array(5).fill(''),
     redSide: new Array(5).fill(''),
   });
+  const [shuffleMode, setShuffleMode] = useState('roles');
 
   const [sent, setSent] = useState(false);
   const [toggleReset, handleToggleReset] = useState(false);
@@ -112,44 +113,50 @@ function App() {
 
         <div className="page-content">
           {!sent ? (
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="space-between">
-              <Grid
-                container
-                justify="center"
-                alignItems="center"
-                direction="column"
-                sm={6}>
-                {/* textfields team1 */}
-                <TeamArea
-                  title="Team 1 (Blue Side)"
-                  teamName="blueSide"
-                  onChange={handleChange}
-                  toggleReset={toggleReset}
-                  teamSide="Blue Side"
-                />
-              </Grid>
+            <>
+              {shuffleMode === 'roles' ? (
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="space-between">
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    direction="column"
+                    sm={6}>
+                    {/* textfields team1 */}
+                    <TeamArea
+                      title="Team 1 (Blue Side)"
+                      teamName="blueSide"
+                      onChange={handleChange}
+                      toggleReset={toggleReset}
+                      teamSide="Blue Side"
+                    />
+                  </Grid>
 
-              <Grid
-                container
-                justify="center"
-                alignItems="center"
-                direction="column"
-                sm={6}>
-                {/* textfields team2 */}
-                {matchesXs && <Box marginTop={4} />}
-                <TeamArea
-                  title="Team 2 (Red Side)"
-                  teamName="redSide"
-                  onChange={handleChange}
-                  toggleReset={toggleReset}
-                  teamSide="Red Side"
-                />
-              </Grid>
-            </Grid>
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    direction="column"
+                    sm={6}>
+                    {/* textfields team2 */}
+                    {matchesXs && <Box marginTop={4} />}
+                    <TeamArea
+                      title="Team 2 (Red Side)"
+                      teamName="redSide"
+                      onChange={handleChange}
+                      toggleReset={toggleReset}
+                      teamSide="Red Side"
+                    />
+                  </Grid>
+                </Grid>
+              ) : (
+                <>Teams</>
+              )}
+            </>
           ) : (
             <Results teams={teams} roles={roles} />
           )}
@@ -191,7 +198,7 @@ function App() {
                 href={'https://github.com/DannyMichaels/'}>
                 GitCat
               </a>
-              &nbsp; LoL Roles Generator &copy; 2021
+              &nbsp; LoL Random Roles Generator &copy; 2021
             </Typography>
 
             <a

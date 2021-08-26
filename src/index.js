@@ -5,10 +5,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Favicon from 'react-favicon';
+import { ROLE_IMAGES } from './utils/roleImages';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Favicon url="https://c.tenor.com/5anpI8D1pgYAAAAM/league-of-legends-lol.gif" />
+    <Favicon url={Array.from(Object.values(ROLE_IMAGES))} />
     <Router>
       <App />
     </Router>
