@@ -101,7 +101,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <div style={{ flexGrow: 1 }} />
+        <Grid item style={{ flexGrow: 1 }} />
 
         <div className="page-content">
           {/* <Typography align="center" variant="h1" component="h1">
@@ -125,6 +125,7 @@ function App() {
                   teamName="blueSide"
                   onChange={handleChange}
                   toggleReset={toggleReset}
+                  teamSide="Blue Side"
                 />
               </Grid>
 
@@ -141,6 +142,7 @@ function App() {
                   teamName="redSide"
                   onChange={handleChange}
                   toggleReset={toggleReset}
+                  teamSide="Red Side"
                 />
               </Grid>
             </Grid>
@@ -175,7 +177,7 @@ function App() {
               </Button>
             </Grid>
           </>
-          <Box marginTop={2} style={{ flexGrow: 1 }} />
+          <Grid item style={{ flexGrow: 1 }} />
         </div>
 
         <footer>

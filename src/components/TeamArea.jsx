@@ -1,14 +1,22 @@
-import { TextField, Typography, Grid } from '@material-ui/core';
+import {
+  TextField,
+  Typography,
+  Grid,
+  InputAdornment,
+  Box,
+} from '@material-ui/core';
 import { useState, useEffect } from 'react';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const PLAYERS_IN_TEAM_COUNT = 5;
 
+// team area before results, with textfields
 export default function TeamArea({
   onChange,
   title,
   teamName,
+  teamSide,
   toggleReset,
-  teams,
 }) {
   const [values, setValues] = useState({
     0: '',
@@ -37,11 +45,25 @@ export default function TeamArea({
       </Grid>
       {new Array(PLAYERS_IN_TEAM_COUNT).fill().map((_, idx) => (
         <Grid item key={idx}>
+          <Box marginTop={2} />
+
           <TextField
+            variant="filled"
+            color="primary"
             className="textfield"
             name={teamName}
+            fullWidth
             inputProps={{ index: idx }}
             value={values[idx]}
+            label={`Summoner ${idx + 1} (${teamSide})`}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+            placeholder={`Enter Summoner ${idx + 1}'s IGN`}
             onChange={(e) => {
               onChange(e);
               setValues((prevState) => ({
@@ -49,7 +71,6 @@ export default function TeamArea({
                 [idx]: e.target.value,
               }));
             }}
-            label={`Summoner ${idx + 1}`}
           />
         </Grid>
       ))}
