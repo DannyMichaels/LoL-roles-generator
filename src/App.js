@@ -33,23 +33,21 @@ const theme = createTheme({
  */
 
 const shuffle = (array) => {
-  let currentIndex = array.length,
-    randomIndex;
-
-  // While there remain elements to shuffle...
+  let shuffledArray = [...array];
+  let currentIndex = shuffledArray.length - 1;
+  let temporaryValue;
+  let randomIndex;
   while (currentIndex !== 0) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
+
+    // classic swap algorithm
+    temporaryValue = shuffledArray[currentIndex]; // assign tempValue to the currentIndex of array
+    shuffledArray[currentIndex] = shuffledArray[randomIndex]; // takes element  from current index and shuffles it, moving it to random index.
+    shuffledArray[randomIndex] = temporaryValue;
+
     currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
   }
-
-  return array;
+  return shuffledArray;
 };
 
 function App() {
