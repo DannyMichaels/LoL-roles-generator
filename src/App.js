@@ -89,8 +89,8 @@ function App() {
   const onReset = () => {
     setSent(false);
     setTeams({
-      blueSide: new Array(5).fill(""),
-      redSide:  new Array(5).fill(""),
+      blueSide: new Array(5).fill(''),
+      redSide: new Array(5).fill(''),
     });
 
     handleToggleReset((prev) => !prev);
@@ -172,7 +172,16 @@ function App() {
         </div>
         <footer>
           <Grid container justify="space-between" style={{ padding: '10px' }}>
-            <Typography>GitCat LoL roles Generator</Typography>
+            <Typography>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={'https://github.com/DannyMichaels/'}>
+                GitCat
+              </a>
+              &nbsp; LoL roles Generator &copy; 2021
+            </Typography>
+
             <a
               target="_blank"
               rel="noreferrer"
