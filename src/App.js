@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, useMediaQuery } from '@material-ui/core';
+import { Typography, Grid, useMediaQuery, Hidden } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
@@ -58,7 +58,6 @@ function App() {
     blueSide: new Array(5).fill(''),
     redSide: new Array(5).fill(''),
   });
-  const [shuffleMode, setShuffleMode] = useState('roles');
 
   const [sent, setSent] = useState(false);
   const [toggleReset, handleToggleReset] = useState(false);
@@ -113,50 +112,44 @@ function App() {
 
         <div className="page-content">
           {!sent ? (
-            <>
-              {shuffleMode === 'roles' ? (
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="space-between">
-                  <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
-                    direction="column"
-                    sm={6}>
-                    {/* textfields team1 */}
-                    <TeamArea
-                      title="Team 1 (Blue Side)"
-                      teamName="blueSide"
-                      onChange={handleChange}
-                      toggleReset={toggleReset}
-                      teamSide="Blue Side"
-                    />
-                  </Grid>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="space-between">
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                direction="column"
+                sm={6}>
+                {/* textfields team1 */}
+                <TeamArea
+                  title="Team 1 (Blue Side)"
+                  teamName="blueSide"
+                  onChange={handleChange}
+                  toggleReset={toggleReset}
+                  teamSide="Blue Side"
+                />
+              </Grid>
 
-                  <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
-                    direction="column"
-                    sm={6}>
-                    {/* textfields team2 */}
-                    {matchesXs && <Box marginTop={4} />}
-                    <TeamArea
-                      title="Team 2 (Red Side)"
-                      teamName="redSide"
-                      onChange={handleChange}
-                      toggleReset={toggleReset}
-                      teamSide="Red Side"
-                    />
-                  </Grid>
-                </Grid>
-              ) : (
-                <>Teams</>
-              )}
-            </>
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                direction="column"
+                sm={6}>
+                {/* textfields team2 */}
+                {matchesXs && <Box marginTop={4} />}
+                <TeamArea
+                  title="Team 2 (Red Side)"
+                  teamName="redSide"
+                  onChange={handleChange}
+                  toggleReset={toggleReset}
+                  teamSide="Red Side"
+                />
+              </Grid>
+            </Grid>
           ) : (
             <Results teams={teams} roles={roles} />
           )}
@@ -190,14 +183,20 @@ function App() {
           <Box marginTop={4} style={{ flexGrow: 1 }} />
         </div>
         <footer>
-          <Grid container justify="space-between" style={{ padding: '10px' }}>
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            style={{ padding: '10px' }}>
             <Typography>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={'https://github.com/DannyMichaels/'}>
-                GitCat
-              </a>
+              <Hidden xsDown>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={'https://github.com/DannyMichaels/'}>
+                  GitCat
+                </a>
+              </Hidden>
               &nbsp; LoL Random Roles Generator &copy; 2021
             </Typography>
 
