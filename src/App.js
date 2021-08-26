@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import './App.css';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, TextField } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
+import TeamArea from './components/TeamArea';
 
 const theme = createTheme({
   palette: {
@@ -23,13 +24,6 @@ const theme = createTheme({
     },
   },
 });
-
-/**
- * @method sample
- * @param {Array} array
- * @return {String} takes an array of strings (words) and returns a random element, the random element being a string.
- */
-const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
  * @method shuffle
@@ -59,14 +53,12 @@ const shuffle = (array) => {
 
 function App() {
   const [teams, setTeams] = useState({
-    blueSide: new Array(5).fill(''),
-    redSide: new Array(5).fill(''),
+    blueSide: [],
+    redSide: [],
   });
 
-  // const [visitedRoles, setVisitedRoles] = useState({
-  //   blueSide: new Set(),
-  //   redSide: new Set(),
-  // });
+  const [sent, setSent] = useState(false);
+  const [toggleReset, handleToggleReset] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,33 +73,78 @@ function App() {
     }));
   };
 
-  useEffect(() => {
-    console.log({ teams });
-  }, [teams]);
-
-  const roles = ['Top', 'Mid', 'Jungle', 'ADC', 'SUPPORT'];
+  const roles = ['Top', 'Mid', 'Jungle', 'ADC', 'Support'];
 
   const getRoles = () => {
-    let result1 = shuffle(teams.blueSide);
-    let result2 = shuffle(teams.redSide);
+    setTeams((prevState) => ({
+      blueSide: shuffle(prevState.blueSide),
+      redSide: shuffle(prevState.redSide),
+    }));
 
-    console.log({ result1, result2 });
+    setSent(true);
   };
+
+  const onReset = () => {
+    const inputFields = document.getElementsByClassName('textfield');
+
+    Array.from(inputFields).map((field) => (field.value = ''));
+
+    setSent(false);
+    setTeams({
+      blueSide: [],
+      redSide: [],
+    });
+
+    handleToggleReset((prev) => !prev);
+  };
+
+  const playersLength = useMemo(
+    () => teams.blueSide.length + teams.redSide.length,
+    [teams]
+  );
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <Typography>Paper</Typography>
+        <Typography></Typography>
 
-        {teams['blueSide'].map((spot, idx) => (
-          <TextField
-            name="blueSide"
-            inputProps={{ index: idx }}
-            onChange={handleChange}
-          />
-        ))}
-        <Button onClick={() => getRoles()}>getroles</Button>
+        {!sent ? (
+          <Grid
+            container
+            sm={6}
+            justify="center"
+            alignItems="center"
+            spacing={2}
+            direction="row">
+            <TeamArea
+              title="Team 1 (Blue Side)"
+              teamName="blueSide"
+              onChange={handleChange}
+              teams={teams}
+              toggleReset={toggleReset}
+            />
+          </Grid>
+        ) : (
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            sm={12}
+            spacing={2}>
+            {roles.map((role, idx) => (
+              <Grid item>
+                <Typography>name: {teams.blueSide[idx]}</Typography>
+                <Typography>role: {role}</Typography>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+        <Button onClick={getRoles} disabled={playersLength < 10}>
+          {!sent ? 'Get Roles' : 'Shuffle Again'}
+        </Button>
+        <Button onClick={onReset}>Reset</Button>
+        <footer></footer>
       </Paper>
     </ThemeProvider>
   );
