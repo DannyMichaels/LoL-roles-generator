@@ -166,8 +166,8 @@ function App() {
                         padding: '10px',
                         border: '1px solid #999',
                       }}>
-                      <Typography>role: {role}</Typography>
-                      <Typography>name: {teams.blueSide[idx]}</Typography>
+                      <Typography>Role: {role}</Typography>
+                      <Typography>Name: {teams.blueSide[idx]}</Typography>
                     </Grid>
                   ))}
                 </Grid>
@@ -183,8 +183,8 @@ function App() {
                         padding: '10px',
                         border: '1px solid #999',
                       }}>
-                      <Typography>name: {teams.redSide[idx]}</Typography>
-                      <Typography>role: {role}</Typography>
+                      <Typography>Role: {role}</Typography>
+                      <Typography>Name: {teams.redSide[idx]}</Typography>
                     </Grid>
                   ))}
                 </Grid>
