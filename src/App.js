@@ -103,8 +103,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <Box  style={{ flexGrow: 1 }} />
-   
+        <Box style={{ flexGrow: 1 }} />
+
         <div className="page-content">
           {!sent ? (
             <Grid

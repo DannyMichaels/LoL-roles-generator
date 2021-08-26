@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const PLAYERS_IN_TEAM_COUNT = 5;
 
@@ -36,6 +38,9 @@ export default function TeamArea({
     });
   }, [toggleReset]);
 
+  const { breakpoints } = useTheme();
+  const matchesXs = useMediaQuery(breakpoints.down('sm'));
+
   return (
     <>
       <Grid item>
@@ -63,7 +68,9 @@ export default function TeamArea({
                 </InputAdornment>
               ),
             }}
-            placeholder={`Enter Summoner ${idx + 1}'s IGN`}
+            placeholder={
+              matchesXs ? 'Enter Name' : `Enter Summoner ${idx + 1}'s IGN`
+            }
             onChange={(e) => {
               onChange(e);
               setValues((prevState) => ({
