@@ -213,7 +213,7 @@ function App() {
         </div>
         <footer>
           <Grid container justify="space-between" style={{ padding: '10px' }}>
-            <Typography>GitCat LoL roles Generator</Typography>
+            <Typography>GitCat LoL Roles Generator</Typography>
             <a
               target="_blank"
               rel="noreferrer"
