@@ -86,10 +86,6 @@ function App() {
   };
 
   const onReset = () => {
-    const inputFields = document.getElementsByClassName('textfield');
-
-    Array.from(inputFields).map((field) => (field.value = ''));
-
     setSent(false);
     setTeams({
       blueSide: [],
