@@ -30,7 +30,7 @@ const theme = createTheme({
 /**
  * @method shuffle
  * @param {Array} array
- * @return  takes an array and shuffles the elements.
+ * @return {Array} takes an array and shuffles the elements.
  */
 
 const shuffle = (array) => {
@@ -179,7 +179,7 @@ function App() {
                 href={'https://github.com/DannyMichaels/'}>
                 GitCat
               </a>
-              &nbsp; LoL roles Generator &copy; 2021
+              &nbsp; LoL Roles Generator &copy; 2021
             </Typography>
 
             <a
