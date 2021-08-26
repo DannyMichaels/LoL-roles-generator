@@ -3,7 +3,13 @@ import { useState, useEffect } from 'react';
 
 const PLAYERS_IN_TEAM_COUNT = 5;
 
-export default function TeamArea({ onChange, title, teamName, toggleReset }) {
+export default function TeamArea({
+  onChange,
+  title,
+  teamName,
+  toggleReset,
+  teams,
+}) {
   const [values, setValues] = useState({
     0: '',
     1: '',
@@ -23,7 +29,7 @@ export default function TeamArea({ onChange, title, teamName, toggleReset }) {
   }, [toggleReset]);
 
   return (
-    <Grid item container direction="column" justify="center">
+    <>
       <Grid item>
         <Typography variant="h4" component="h1">
           {title}
@@ -43,9 +49,10 @@ export default function TeamArea({ onChange, title, teamName, toggleReset }) {
                 [idx]: e.target.value,
               }));
             }}
+            label={`Summoner ${idx + 1}`}
           />
         </Grid>
       ))}
-    </Grid>
+    </>
   );
 }

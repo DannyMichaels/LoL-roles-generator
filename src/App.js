@@ -8,6 +8,7 @@ import { Typography, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
+import { Box } from '@material-ui/core';
 
 const theme = createTheme({
   palette: {
@@ -107,44 +108,124 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <Typography></Typography>
-
-        {!sent ? (
-          <Grid
-            container
-            sm={6}
-            justify="center"
-            alignItems="center"
-            spacing={2}
-            direction="row">
-            <TeamArea
-              title="Team 1 (Blue Side)"
-              teamName="blueSide"
-              onChange={handleChange}
-              teams={teams}
-              toggleReset={toggleReset}
-            />
-          </Grid>
-        ) : (
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            sm={12}
-            spacing={2}>
-            {roles.map((role, idx) => (
-              <Grid item>
-                <Typography>name: {teams.blueSide[idx]}</Typography>
-                <Typography>role: {role}</Typography>
+        <div className="body">
+          {/* <Typography align="center" variant="h1" component="h1">
+          LoL Roles Generator
+        </Typography> */}
+          {!sent ? (
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="space-between">
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                direction="column"
+                sm={6}>
+                <TeamArea
+                  title="Team 1 (Blue Side)"
+                  teamName="blueSide"
+                  onChange={handleChange}
+                  toggleReset={toggleReset}
+                />
               </Grid>
-            ))}
+
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                direction="column"
+                sm={6}>
+                <TeamArea
+                  title="Team 2 (Red Side)"
+                  teamName="redSide"
+                  onChange={handleChange}
+                  toggleReset={toggleReset}
+                />
+              </Grid>
+            </Grid>
+          ) : (
+            <>
+              <Grid
+                container
+                direction="row"
+                justify="space-evenly"
+                sm={12}
+                spacing={2}>
+                <Grid item>
+                  <Typography variant="h4" component="h1" gutterBottom>
+                    Team One (Blue Side)
+                  </Typography>
+                  {roles.map((role, idx) => (
+                    <Grid
+                      item
+                      style={{
+                        backgroundColor: '#fff',
+                        padding: '10px',
+                        border: '1px solid #999',
+                      }}>
+                      <Typography>role: {role}</Typography>
+                      <Typography>name: {teams.blueSide[idx]}</Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+                <Grid item>
+                  <Typography variant="h4" component="h1" gutterBottom>
+                    Team Two (Red Side)
+                  </Typography>
+                  {roles.map((role, idx) => (
+                    <Grid
+                      item
+                      style={{
+                        backgroundColor: '#fff',
+                        padding: '10px',
+                        border: '1px solid #999',
+                      }}>
+                      <Typography>name: {teams.redSide[idx]}</Typography>
+                      <Typography>role: {role}</Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            </>
+          )}
+          <>
+            <br />
+            <Box marginTop={8} />
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="center"
+              spacing={2}
+              sm={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={getRoles}
+                disabled={playersLength < 10}>
+                {!sent ? 'Get Roles' : 'Shuffle Again'}
+              </Button>
+              <Box marginRight={2} />
+              <Button variant="contained" color="secondary" onClick={onReset}>
+                Reset
+              </Button>
+            </Grid>
+          </>
+        </div>
+        <footer>
+          <Grid container justify="space-between" style={{ padding: '10px' }}>
+            <Typography>GitCat LoL roles Generator</Typography>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={'https://github.com/DannyMichaels/LoL-roles-generator'}>
+              Source
+            </a>
           </Grid>
-        )}
-        <Button onClick={getRoles} disabled={playersLength < 10}>
-          {!sent ? 'Get Roles' : 'Shuffle Again'}
-        </Button>
-        <Button onClick={onReset}>Reset</Button>
-        <footer></footer>
+        </footer>
       </Paper>
     </ThemeProvider>
   );

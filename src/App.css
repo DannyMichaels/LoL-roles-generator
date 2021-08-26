@@ -1,3 +1,30 @@
 .App {
   min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+footer {
+  background: pink;
+  height: 60px;
+  font-size: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+  transform: scale(1.04);
 }
