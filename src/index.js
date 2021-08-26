@@ -9,7 +9,7 @@ import { ROLE_IMAGES } from './utils/roleImages';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Favicon url={Array.from(Object.values(ROLE_IMAGES))} />
+    <Favicon url={[...Object.values(ROLE_IMAGES)]} />
     <Router>
       <App />
     </Router>

@@ -4,12 +4,20 @@ import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, useMediaQuery, Hidden } from '@material-ui/core';
+import {
+  Typography,
+  Grid,
+  useMediaQuery,
+  Hidden,
+  TextField,
+  Button,
+  Box,
+  InputAdornment,
+} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
-import { Box } from '@material-ui/core';
 import Results from './components/Results';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const theme = createTheme({
   palette: {
@@ -26,6 +34,21 @@ const theme = createTheme({
     },
   },
 });
+
+const INITIAL_PLAYERS_STATE = {
+  0: '',
+  1: '',
+  2: '',
+  3: '',
+  4: '',
+  5: '',
+  6: '',
+  7: '',
+  8: '',
+  9: '',
+};
+
+const PLAYERS_IN_GAME_COUNT = 10;
 
 /**
  * @method shuffle
@@ -59,6 +82,10 @@ function App() {
     redSide: new Array(5).fill(''),
   });
 
+  const [shuffleMode, setShuffleMode] = useState('roles');
+
+  const [players, setPlayers] = useState(INITIAL_PLAYERS_STATE);
+
   const [sent, setSent] = useState(false);
   const [toggleReset, handleToggleReset] = useState(false);
 
@@ -80,10 +107,25 @@ function App() {
     }));
   };
 
-  const getRoles = () => {
+  const getShuffledRoles = () => {
     setTeams((prevState) => ({
       blueSide: shuffle(prevState.blueSide),
       redSide: shuffle(prevState.redSide),
+    }));
+
+    setSent(true);
+  };
+
+  const getShuffledTeams = () => {
+    let result = shuffle([...Object.values(players)]);
+
+    const firstFivePlayers = [...result].slice(0, 5);
+    const secondFivePlayers = [...result].slice(5);
+
+    setTeams((prevState) => ({
+      ...prevState,
+      blueSide: firstFivePlayers,
+      redSide: secondFivePlayers,
     }));
 
     setSent(true);
@@ -95,13 +137,16 @@ function App() {
       blueSide: new Array(5).fill(''),
       redSide: new Array(5).fill(''),
     });
-
+    setPlayers(INITIAL_PLAYERS_STATE);
     handleToggleReset((prev) => !prev);
   };
 
   const someInputsAreEmpty = useMemo(
-    () => [...teams.blueSide, ...teams.redSide].some((value) => value === ''),
-    [teams]
+    () =>
+      shuffleMode === 'roles'
+        ? [...teams.blueSide, ...teams.redSide].some((value) => value === '')
+        : [...Object.values(players)].some((value) => value === ''),
+    [teams, shuffleMode, players]
   );
 
   return (
@@ -112,44 +157,79 @@ function App() {
 
         <div className="page-content">
           {!sent ? (
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="space-between">
+            <>
               <Grid
                 container
-                justify="center"
+                direction={shuffleMode === 'roles' ? 'row' : 'column'}
                 alignItems="center"
-                direction="column"
-                sm={6}>
-                {/* textfields team1 */}
-                <TeamArea
-                  title="Team 1 (Blue Side)"
-                  teamName="blueSide"
-                  onChange={handleChange}
-                  toggleReset={toggleReset}
-                  teamSide="Blue Side"
-                />
-              </Grid>
+                justify={shuffleMode === 'roles' ? 'space-between' : 'center'}>
+                {shuffleMode === 'roles' ? (
+                  <>
+                    <Grid
+                      container
+                      justify="center"
+                      alignItems="center"
+                      direction="column"
+                      sm={6}>
+                      {/* textfields team1 */}
+                      <TeamArea
+                        title="Team 1 (Blue Side)"
+                        teamName="blueSide"
+                        onChange={handleChange}
+                        toggleReset={toggleReset}
+                        teamSide="Blue Side"
+                      />
+                    </Grid>
 
-              <Grid
-                container
-                justify="center"
-                alignItems="center"
-                direction="column"
-                sm={6}>
-                {/* textfields team2 */}
-                {matchesXs && <Box marginTop={4} />}
-                <TeamArea
-                  title="Team 2 (Red Side)"
-                  teamName="redSide"
-                  onChange={handleChange}
-                  toggleReset={toggleReset}
-                  teamSide="Red Side"
-                />
+                    <Grid
+                      container
+                      justify="center"
+                      alignItems="center"
+                      direction="column"
+                      sm={6}>
+                      {/* textfields team2 */}
+                      {matchesXs && <Box marginTop={4} />}
+                      <TeamArea
+                        title="Team 2 (Red Side)"
+                        teamName="redSide"
+                        onChange={handleChange}
+                        toggleReset={toggleReset}
+                        teamSide="Red Side"
+                      />
+                    </Grid>
+                  </>
+                ) : (
+                  <>
+                    {new Array(PLAYERS_IN_GAME_COUNT)
+                      .fill()
+                      .map((_player, idx) => (
+                        <>
+                          <Box marginTop={2} />
+                          <TextField
+                            variant="filled"
+                            label={`Player ${idx + 1}`}
+                            value={players[idx]}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <AccountCircle />
+                                </InputAdornment>
+                              ),
+                            }}
+                            placeholder="Enter Name"
+                            onChange={(e) =>
+                              setPlayers((prevState) => ({
+                                ...prevState,
+                                [idx]: e.target.value,
+                              }))
+                            }
+                          />
+                        </>
+                      ))}
+                  </>
+                )}
               </Grid>
-            </Grid>
+            </>
           ) : (
             <Results teams={teams} roles={roles} />
           )}
@@ -158,19 +238,61 @@ function App() {
             <Box marginTop={8} />
             <Grid
               container
-              direction="row"
+              direction={matchesXs ? 'column' : 'row'}
               alignItems="center"
               justify="center"
               sm={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={getRoles}
-                style={{ color: someInputsAreEmpty ? '#999' : '#fff' }}
-                disabled={someInputsAreEmpty}>
-                {!sent ? 'Get Roles' : 'Shuffle Again'}
-              </Button>
-              <Box marginRight={2} />
+              {shuffleMode === 'roles' ? (
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={getShuffledRoles}
+                    disabled={someInputsAreEmpty}>
+                    {!sent ? 'Get Random Roles' : 'Shuffle Roles Again'}
+                  </Button>
+                  <Box
+                    marginRight={!matchesXs && 2}
+                    marginTop={matchesXs && 2}
+                  />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ background: 'blue' }}
+                    onClick={() => {
+                      setShuffleMode('teams');
+                      onReset();
+                    }}>
+                    Get random teams instead
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={getShuffledTeams}
+                    disabled={someInputsAreEmpty}>
+                    {!sent ? 'Get Random Teams' : 'Shuffle Again'}
+                  </Button>
+                  <Box
+                    marginRight={!matchesXs && 2}
+                    marginTop={matchesXs && 2}
+                  />
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ background: 'blue' }}
+                    onClick={() => {
+                      setShuffleMode('roles');
+                      onReset();
+                    }}>
+                    Get random roles instead
+                  </Button>
+                </>
+              )}
+              <Box marginRight={!matchesXs && 2} marginTop={matchesXs && 2} />
               <Button
                 variant="contained"
                 style={{ color: '#fff' }}
