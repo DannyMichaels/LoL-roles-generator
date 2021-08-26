@@ -63,6 +63,8 @@ function App() {
   const { breakpoints } = useTheme();
   const matchesXs = useMediaQuery(breakpoints.down('xs'));
 
+  const roles = ['Top', 'Jungle', 'Mid', 'ADC', 'Support'];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const index = e.target.getAttribute('index');
@@ -75,8 +77,6 @@ function App() {
       [name]: [...currentTeam],
     }));
   };
-
-  const roles = ['Top', 'Jungle', 'Mid', 'ADC', 'Support'];
 
   const getRoles = () => {
     setTeams((prevState) => ({
