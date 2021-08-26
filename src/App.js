@@ -74,7 +74,7 @@ function App() {
     }));
   };
 
-  const roles = ['Top', 'Mid', 'Jungle', 'ADC', 'Support'];
+  const roles = ['Top', 'Jungle', 'Mid', 'ADC', 'Support'];
 
   const getRoles = () => {
     setTeams((prevState) => ({
