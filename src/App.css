@@ -28,3 +28,15 @@ a:hover {
   text-decoration: underline;
   transform: scale(1.04);
 }
+
+.team__list--item {
+  background-color: '#fff';
+  padding: 10px;
+  border: 1px solid #999;
+}
+
+.team__list {
+  width: 100%;
+  max-width: 36ch;
+  background-color: #fff;
+}

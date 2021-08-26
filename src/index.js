@@ -1,17 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import Favicon from 'react-favicon';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Favicon url="https://c.tenor.com/5anpI8D1pgYAAAAM/league-of-legends-lol.gif" />
     <Router>
       <App />
     </Router>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
