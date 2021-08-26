@@ -103,13 +103,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <Grid item style={{ flexGrow: 1 }}>
-          <Hidden xsDown>
-            <Box marginTop={4} marginBottom={2} marginLeft={2}>
-              *Last modified: August 26 2021*
-            </Box>
-          </Hidden>
-        </Grid>
+        <Box  style={{ flexGrow: 1 }} />
+   
         <div className="page-content">
           {!sent ? (
             <Grid
