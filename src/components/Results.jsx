@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, useMediaQuery, Box } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -6,6 +6,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { ROLE_IMAGES } from '../utils/roleImages';
 import { Fragment } from 'react';
+import { useTheme } from '@material-ui/core/styles';
 
 const TeamList = ({ title, team, roles }) => (
   <Grid item>
@@ -52,10 +53,18 @@ const TeamList = ({ title, team, roles }) => (
 
 export default function Results({ teams, roles }) {
   const { blueSide, redSide } = teams;
+  const { breakpoints } = useTheme();
+  let matchesXs = useMediaQuery(breakpoints.down('xs'));
 
   return (
-    <Grid container direction="row" justify="space-evenly" sm={12} spacing={2}>
+    <Grid
+      container
+      direction={matchesXs ? 'column' : 'row'}
+      justify={matchesXs ? 'center' : 'space-evenly'}
+      xs={12}
+      sm={12}>
       <TeamList title="Team One (Blue Side)" team={blueSide} roles={roles} />
+      {matchesXs && <Box marginTop={4} />}
       <TeamList title="Team Two (Red Side)" team={redSide} roles={roles} />
     </Grid>
   );

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './App.css';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, useMediaQuery } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
@@ -60,6 +60,9 @@ function App() {
   const [sent, setSent] = useState(false);
   const [toggleReset, handleToggleReset] = useState(false);
 
+  const { breakpoints } = useTheme();
+  const matchesXs = useMediaQuery(breakpoints.down('xs'));
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const index = e.target.getAttribute('index');
@@ -98,7 +101,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper className="App">
-        <div className="body">
+        <div style={{ flexGrow: 1 }} />
+
+        <div className="page-content">
           {/* <Typography align="center" variant="h1" component="h1">
           LoL Roles Generator
         </Typography> */}
@@ -130,6 +135,7 @@ function App() {
                 direction="column"
                 sm={6}>
                 {/* textfields team2 */}
+                {matchesXs && <Box marginTop={4} />}
                 <TeamArea
                   title="Team 2 (Red Side)"
                   teamName="redSide"
@@ -149,7 +155,6 @@ function App() {
               direction="row"
               alignItems="center"
               justify="center"
-              spacing={2}
               sm={12}>
               <Button
                 variant="contained"
@@ -170,7 +175,9 @@ function App() {
               </Button>
             </Grid>
           </>
+          <Box marginTop={2} style={{ flexGrow: 1 }} />
         </div>
+
         <footer>
           <Grid container justify="space-between" style={{ padding: '10px' }}>
             <Typography>

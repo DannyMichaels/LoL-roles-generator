@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.body {
+.page-content {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -44,4 +44,7 @@ a:hover {
 .MuiList-root {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+}
+
+body {
 }
