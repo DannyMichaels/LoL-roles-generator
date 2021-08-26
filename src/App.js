@@ -132,7 +132,6 @@ function App() {
                 direction="column"
                 sm={6}>
                 {/* textfields team2 */}
-
                 <TeamArea
                   title="Team 2 (Red Side)"
                   teamName="redSide"
@@ -164,7 +163,11 @@ function App() {
                 {!sent ? 'Get Roles' : 'Shuffle Again'}
               </Button>
               <Box marginRight={2} />
-              <Button variant="contained" color="secondary" onClick={onReset}>
+              <Button
+                variant="contained"
+                style={{ color: '#fff' }}
+                color="secondary"
+                onClick={onReset}>
                 Reset
               </Button>
             </Grid>
