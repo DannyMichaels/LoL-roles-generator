@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import './App.css';
 import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
@@ -99,6 +99,11 @@ function App() {
     handleToggleReset((prev) => !prev);
   };
 
+  const someInputsAreEmpty = useMemo(
+    () => [...teams.blueSide, ...teams.redSide].some((value) => value === ''),
+    [teams]
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -161,9 +166,8 @@ function App() {
                 variant="contained"
                 color="primary"
                 onClick={getRoles}
-                disabled={[...teams.blueSide, ...teams.redSide].some(
-                  (value) => value === ''
-                )}>
+                style={{ color: someInputsAreEmpty ? '#999' : '#fff' }}
+                disabled={someInputsAreEmpty}>
                 {!sent ? 'Get Roles' : 'Shuffle Again'}
               </Button>
               <Box marginRight={2} />
