@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, useMediaQuery, Hidden } from '@material-ui/core';
+import { Typography, Grid, useMediaQuery } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import TeamArea from './components/TeamArea';
