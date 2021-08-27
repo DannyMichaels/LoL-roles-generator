@@ -159,10 +159,12 @@ function App() {
           {!sent ? (
             <>
               <Grid
+                className="inner-column"
                 container
-                direction={shuffleMode === 'roles' ? 'row' : 'column'}
+                direction={'row'}
                 alignItems="center"
-                justify={shuffleMode === 'roles' ? 'space-between' : 'center'}>
+                justify={'space-between'}
+                md={12}>
                 {shuffleMode === 'roles' ? (
                   <>
                     <Grid
@@ -203,8 +205,8 @@ function App() {
                     {new Array(PLAYERS_IN_GAME_COUNT)
                       .fill()
                       .map((_player, idx) => (
-                        <>
-                          <Box marginTop={2} />
+                        <Grid item md={6}>
+                          {/* <Box marginTop={2} /> */}
                           <TextField
                             variant="filled"
                             label={`Player ${idx + 1}`}
@@ -224,7 +226,7 @@ function App() {
                               }))
                             }
                           />
-                        </>
+                        </Grid>
                       ))}
                   </>
                 )}
