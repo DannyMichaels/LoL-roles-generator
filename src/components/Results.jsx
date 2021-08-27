@@ -1,4 +1,10 @@
-import { Grid, Typography, useMediaQuery, Box } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  useMediaQuery,
+  Box,
+  Hidden,
+} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -51,7 +57,7 @@ const TeamList = ({ title, team, roles }) => (
   </Grid>
 );
 
-export default function Results({ teams, roles }) {
+export default function Results({ teams, roles, shuffleMode }) {
   const { blueSide, redSide } = teams;
   const { breakpoints } = useTheme();
   let matchesXs = useMediaQuery(breakpoints.down('xs'));
@@ -59,11 +65,26 @@ export default function Results({ teams, roles }) {
   return (
     <Grid
       container
+      className="inner-column"
       direction={matchesXs ? 'column' : 'row'}
       justify={matchesXs ? 'center' : 'space-evenly'}
       xs={12}
       alignItems="center"
-      sm={12}>
+      sm={12}
+      lg={10}
+      spacing={2}>
+      <Grid item container direction="column" align="center" justify="center">
+        <Typography
+          align="center"
+          variant="h2"
+          gutterBottom
+          style={{ textShadow: '1px 1px 1px #999' }}>
+          {shuffleMode === 'teams'
+            ? 'Random Teams Results'
+            : 'Random Roles Results'}
+        </Typography>
+        <Box style={{ flexGrow: 1 }} marginBottom={1} />
+      </Grid>
       <TeamList title="Team One (Blue Side)" team={blueSide} roles={roles} />
       {matchesXs && <Box marginTop={4} />}
       <TeamList title="Team Two (Red Side)" team={redSide} roles={roles} />

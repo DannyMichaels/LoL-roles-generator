@@ -156,15 +156,33 @@ function App() {
         <Box style={{ flexGrow: 1 }} />
 
         <div className="page-content">
+          {/* <div className="inner-column"> */}
           {!sent ? (
             <>
               <Grid
-                className="inner-column"
                 container
                 direction={'row'}
                 alignItems="center"
-                justify={'space-between'}
-                md={12}>
+                justify={'center'}
+                className="inner-column"
+                lg={shuffleMode === 'teams' && 4}
+                sm={shuffleMode === 'teams' && 8}
+                spacing={4}>
+                <Grid
+                  item
+                  container
+                  direction="column"
+                  align="center"
+                  justify="center">
+                  <Typography
+                    align="center"
+                    variant="h2"
+                    gutterBottom
+                    style={{ textShadow: '1px 1px 1px #999' }}>
+                    {shuffleMode === 'teams' ? 'Random Teams' : 'Random Roles'}
+                  </Typography>
+                  <Box style={{ flexGrow: 1 }} marginBottom={1} />
+                </Grid>
                 {shuffleMode === 'roles' ? (
                   <>
                     <Grid
@@ -208,6 +226,7 @@ function App() {
                         <Grid item md={6}>
                           {/* <Box marginTop={2} /> */}
                           <TextField
+                            fullWidth
                             variant="filled"
                             label={`Player ${idx + 1}`}
                             value={players[idx]}
@@ -233,11 +252,11 @@ function App() {
               </Grid>
             </>
           ) : (
-            <Results teams={teams} roles={roles} />
+            <Results shuffleMode={shuffleMode} teams={teams} roles={roles} />
           )}
           <>
             <br />
-            <Box marginTop={8} />
+            <Box marginTop={5} style={{ flexGrow: 1 }} />
             <Grid
               container
               direction={matchesXs ? 'column' : 'row'}
@@ -322,6 +341,7 @@ function App() {
           </>
           <Box marginTop={4} style={{ flexGrow: 1 }} />
         </div>
+        {/* </div> */}
         <footer>
           <Grid
             container
